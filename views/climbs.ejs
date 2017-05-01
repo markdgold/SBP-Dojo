@@ -1,0 +1,18 @@
+<nav class="climb_nav">
+    <ul class="container text-center">
+        <li class="col-xs-3"><a href="/"><i class="glyphicon glyphicon-home"></i></a></li><!--
+     --><li class="col-xs-3"><a href="#"><i class="glyphicon glyphicon-plus"></i></a></li><!--
+     --><li class="col-xs-3"><a href="#"><i class="glyphicon glyphicon-star"></i></a></li><!--
+     --><li class="col-xs-3"><a href="#"><i class="glyphicon glyphicon-filter"></i></a></li>
+    </ul>
+</nav>
+
+<%climbs.forEach(function(climb){ %>
+<div class=" climb_div container text-center">
+	<div class="climb_info <%=climb.grade%>">
+		<p><%=climb.name%></p>
+		<p>Set By: <%=climb.creator_id%>, 03/19/17</p>
+	</div>
+	<img class="climb_img" src="<%=climb.imgur%>" alt="<%=climb.name%>">
+</div>
+<%});%>

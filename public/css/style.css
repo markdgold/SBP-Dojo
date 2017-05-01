@@ -1,0 +1,91 @@
+body {
+    font-family: 'Old Standard TT', serif;
+}
+
+#sbpLogo {
+    width: 85px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.header {
+    border-bottom: 2px dotted black;
+    width: 100%;
+}
+
+.header span {
+    font-size: 3em;
+    position: relative;
+    top: 10px;
+}
+
+.splash_nav li {
+    font-size: 2em;
+}
+
+a {
+    color: black;
+    text-decoration: none !important;
+}
+
+.nav.container {
+    padding-right: 0 !important;
+}
+
+.nav li.well {
+    padding: 10px !important;
+}
+
+#banner {
+    width: 100%;
+}
+
+.climb_nav {
+    margin: 20px 0;
+    border-bottom: 2px dotted black;
+}
+
+.climb_nav ul {
+    list-style: none;
+}
+
+.climb_nav ul li {
+    display: inline-block;
+    font-size: 2em;
+}
+
+.climb_img {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.climb_info {
+    border-radius: 5px 5px 0 0;
+    color: white;
+}
+
+.climb_info {
+    font-size: 1.6em;
+}
+
+.orange {
+    background-color: #DEAF01;
+}
+
+.blue {
+    background-color: #1724A7;
+}
+
+.purple {
+    background-color: #581845;
+}
+
+.black {
+    background-color: black;
+}
+
+.red {
+    background-color: #E20A0A;
+}
