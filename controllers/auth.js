@@ -10,10 +10,10 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/profile',
-    successFlash: 'Good job, you logged in.',
+    successRedirect: '/',
+    successFlash: 'Logged in.',
     failureRedirect: '/auth/login',
-    failureFlash: 'Try again, loser.'
+    failureFlash: 'Try again'
 }));
 
 router.get('/signup', function(req, res) {
@@ -31,7 +31,7 @@ router.post('/signup', function(req, res, next) {
         if (wasCreated) {
             //good
             passport.authenticate('local', {
-                successRedirect: '/profile',
+                successRedirect: '/',
                 successFlash: 'Logged in',
                 failureRedirect: '/auth/signup',
                 failureFlash: 'Unknown error. Please log in.'

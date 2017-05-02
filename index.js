@@ -38,6 +38,10 @@ app.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile');
 });
 
+app.get('/newClimb', isLoggedIn, function(req, res) {
+    res.render('newClimb');
+});
+
 //controllers
 app.use('/climbs', require('./controllers/climbs'));
 app.use('/auth', require('./controllers/auth'));
