@@ -1,30 +1,45 @@
 body {
     font-family: 'Old Standard TT', serif;
+    background-position: left;
+    height: 100
+}
+
+.wrapper {
+    height: 100%;
 }
 
 #sbpLogo {
     width: 85px;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     display: inline-block;
+    float: right;
 }
 
 .header {
-    border-bottom: 2px dotted black;
+    background-image: url('/img/wallpaper.jpg');
+    background-size: cover;
     width: 100%;
 }
 
 .header span {
-    font-size: 3em;
+    font-size: 2.6em;
     position: relative;
-    top: 10px;
+    top: 33px;
+    float: left;
+    color: #eee;
 }
 
-.splash_nav li {
-    font-size: 2em;
+.land_nav li {
+    font-size: 2.3em;
+    border-radius: 9px;
+    padding: 20px 0;
+    margin: 10px;
+    background: rgba(10, 10, 10, .4);
 }
 
 a {
-    color: black;
+    /*color: rgb(200, 200, 200);*/
+    color: rgb(65, 65, 65);
     text-decoration: none !important;
 }
 
@@ -45,12 +60,18 @@ p {
 }
 
 .climb_nav {
-    margin: 20px 0;
-    border-bottom: 2px dotted black;
+    margin-bottom: 25px;
+    background: #eee;
+    padding: 9px 0 0 0;
 }
 
-.climb_nav ul {
+ul {
     list-style: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
 }
 
 .climb_nav ul li {
@@ -58,32 +79,45 @@ p {
     font-size: 2em;
 }
 
+.show_nav {
+    border-top: 1px solid grey;
+    padding: 6px 0 1px 0;
+    margin-bottom: 0;
+}
+
+.show_nav a {
+    color: #eee;
+}
+
+.climb_div {
+    padding: 0 !important;
+}
+
 .climb_img {
     width: 100%;
-    border-radius: 0 0 5px 5px;
     margin-top: -1px;
     margin-bottom: 20px;
 }
 
 .climb_info {
-    border-radius: 5px 5px 0 0;
-    color: white;
-}
-
-.climb_info {
+    color: #eee;
     font-size: 1.6em;
 }
 
+.show_div {
+    margin-top: -20px;
+}
+
 .orange {
-    background-color: #DEAF01;
+    background-color: #dea939;
 }
 
 .blue {
-    background-color: #1724A7;
+    background-color: #1d6b92;
 }
 
 .purple {
-    background-color: #581845;
+    background-color: #683080;
 }
 
 .black {
@@ -91,5 +125,86 @@ p {
 }
 
 .red {
-    background-color: #E20A0A;
+    background-color: #ba254e;
+}
+
+
+/*----------------Forms--------------*/
+
+input[name="username"] {
+    border-radius: 5px 5px 0 0;
+}
+
+input[name="password"] {
+    border-radius: 0 0 5px 5px;
+}
+
+input[name="email"] {
+    border-radius: 0;
+}
+
+.or {
+    text-align: center
+}
+
+
+/*------------------------------------*/
+
+.btn-danger {
+    margin-top: 50px;
+}
+
+.btn-primary {
+    background: #1d6b92 !important;
+    border: none !important;
+}
+
+.form_well {
+    border: none;
+    background: #eee;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.users_climbs.well {
+    position: relative;
+    top: -3px;
+    z-index: -1;
+    margin-bottom: 0;
+    display: none;
+}
+
+.logout {
+    margin-top: 10px !important;
+}
+
+.username {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+#filter_slider {
+    position: absolute;
+    right: 0;
+    top: 153px;
+    height: 500px;
+    width: 100%;
+    background: #eee;
+    display: none;
+    padding-top: 30px
+}
+
+.colorSpan {
+    display: inline-block;
+    width: 17%;
+    height: 20px;
+    margin-right: -4px;
+}
+
+.colorSpan:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.colorSpan:last-child {
+    border-radius: 0 5px 5px 0;
 }

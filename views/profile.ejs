@@ -1,5 +1,18 @@
-<header class="header">
-  <span><%=currentUser.username%></span>
-</header>
-<h3>Logbook</h3>
+<main class="container">
 
+<h2 class="username text-center"><%=currentUser.username%></h2>
+
+<h4 class="btn btn-primary your_climbs_btn btn-block">Your Climbs (<%=usersClimbs.length%>)</h4>
+<div class="users_climbs well">
+<%usersClimbs.forEach(function(climb){ %>
+	<div>
+	        <a href="/climb/<%=climb.id%>"><%=climb.name%></a>
+	        <hr>
+	</div>
+<%});%>
+</div>
+<h4 class="btn btn-primary logbook_btn btn-block">Logbook</h4>
+<a class="logout btn btn-primary btn-block" href="/auth/logout">Logout</a>
+
+</main>
+<%include partials/footer%>

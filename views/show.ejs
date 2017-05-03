@@ -1,1 +1,25 @@
-<%=imgurURL%>
+<main>
+
+<div class="text-center">
+<div class="climb_info show_div text-center <%=climb.grade%>">
+        <p>"<%=climb.name%>"</p>
+        <p>Set By: <%=climb.user.username%></p>
+        <p>Style: <%=climb.style%></p>
+	<ul class="container show_nav">
+	<% if(currentUser && climb.creator_id == currentUser.id){%>
+	  <li class="col-xs-4"><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+	  <li class="col-xs-4"><a href="#"><i class="glyphicon glyphicon-star"></i></a></li>
+	  <form action="/editClimb" method="get">
+	  <li class="col-xs-4"><a href="/editClimb/<%=climb.id%>"><i class="glyphicon glyphicon-edit"></i></a></li>
+	  </form>
+	<%} else if (currentUser) { %>
+		<li class="col-xs-6"><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+		<li class="col-xs-6"><a href="#"><i class="glyphicon glyphicon-star"></i></a></li>
+	<%} else {%>
+		<li class="col-xs-12"><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+	<%};%>
+	</ul>
+    </div>
+<img class="climb_img	" src="<%=climb.imgur%>" alt="<%=climb.name%>">
+    </div>
+</main>

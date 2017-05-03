@@ -1,21 +1,50 @@
-<nav class="climb_nav">
-    <ul class="container text-center">
-        <li class="col-xs-4"><a href="/"><i class="glyphicon glyphicon-home"></i></a></li><!--
-     --><li class="col-xs-4"><a href="/newClimb"><i class="glyphicon glyphicon-plus"></i></a></li><!--
-     -->
-     <!-- <li class="col-xs-3"><a href="#"><i class="glyphicon glyphicon-star"></i></a></li> -->
-     <!---->
-     <li class="col-xs-4"><a href="#"><i class="glyphicon glyphicon-filter"></i></a></li>
-    </ul>
-</nav>
-
+<main>
 <%climbs.forEach(function(climb){ %>
-<div class=" climb_div container text-center">
-	<div class="climb_info <%=climb.grade%>">
-		<p>"<%=climb.name%>"</p>
+<div class="climb_div col-xs-12 container text-center">
+    <div id="<%=climb.user.username%>" class="climb_info <%=climb.grade%> <%=climb.style%>">
+        <p>"<%=climb.name%>"</p>
         <p>Set By: <%=climb.user.username%></p>
         <p>Style: <%=climb.style%></p>
-	</div>
-	<img class="climb_img" src="<%=climb.imgur%>" alt="<%=climb.name%>">
+    </div>
+    <img class="climb_img" src="<%=climb.imgur%>" alt="<%=climb.name%>">
 </div>
 <%});%>
+
+<form id="filter_slider" class="container text-center">
+    <div class="form-group well">
+    <label for="Style">Style:</label>
+    <br>
+      <input name="power" type="checkbox">Power
+      <input name="tech" type="checkbox">Tech
+      <input name="crimp" type="checkbox">Crimp
+      <input name="oneMover" type="checkbox">One-Mover
+      <input name="enduro" type="checkbox">Enduro
+    </div>
+    <div class="form-group well">
+    <label>Set By:</label>
+    <select id="setBy" class="form-control">
+      <option value="markdgold">markdgold</option>
+      <option value="DNA">DNA</option>
+      <option value="NUG">NUG</option>
+      <option value="Drew">Drew</option>
+      <option value="TIGGY">TIGGY</option>
+      <option value="All" selected>All</option>
+    </select>
+    </div>
+
+    <div class="form-group well">
+    <label>Select Grade Range:</label>
+    <div>
+      <span class="colorSpan red"></span>
+      <span class="colorSpan blue"></span>
+      <span class="colorSpan orange"></span>
+      <span class="colorSpan purple"></span>
+      <span class="colorSpan black"></span>
+    </div>
+    </div>
+
+    <div id=slider-step></div>
+    <button id="reset" class="btn btn-primary btn-block">Reset</button>
+</form>
+
+</main>

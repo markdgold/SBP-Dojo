@@ -1,10 +1,11 @@
-<form class="container text-center" action="/climbs" method="POST" enctype="multipart/form-data">
-	<div class="form-group well">
+<form class="form_well container" action="/" method="POST" enctype="multipart/form-data">
+
+	<div class="form-group">
 		<label for="climbName">Name of Climb</label>
 		<input class="form-control" type="text" name="climbName" placeholder="Enter name of climb" required>
 	</div>
 
-<div class="well">
+<div class="form-group">
 	<label for="style">Style</label>
 	<select class="form-control" name="style">
 		<option value="oneMover">One Mover/Dyno</option>
@@ -15,7 +16,7 @@
 	</select>
 </div>
 
-<div class="form-group well">
+<div class="form-group">
 	<label for="grade">Grade</label>
 	<select class="form-control" name="grade">
 		<option value="red">Red (V4-)</option>
@@ -25,10 +26,10 @@
 		<option value="black">Black (V11+)</option>
 	</select>
 </div>
-<div class="form-group well">
+<div class="form-group">
 	<label for="image">Climb Image</label>
 	<input class="form-control btn" type="file" name="image" required>
 </div>
 <input hidden type="text" name="userID" value="<%=currentUser.id%>">
-	<input type="submit" Value="Submit" class="btn btn-primary">
+	<input type="submit" Value="Submit" class="btn btn-primary btn-block">
 </form>

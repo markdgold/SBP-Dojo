@@ -1,0 +1,33 @@
+<h3 class="container">Edit "<%=climb.name%>"</h3>
+<form class="container well" action="<%= '/editClimb/' + climb.id + "?_method=PUT"%>" method="POST">
+
+	<div>
+		<label for="style">Style</label>
+		<select class="form-control" name="style">
+			<option value="oneMover">One Mover/Dyno</option>
+			<option value="enduro">Enduro</option>
+			<option value="crimp">Crimp</option>
+			<option value="power">Power</option>
+			<option value="tech">Tech</option>
+			<option selected value=<%=climb.style%>>Leave Same</option>
+		</select>
+	</div>
+	<br>
+	<div>
+		<label for="grade">Grade</label>
+		<select class="form-control" name="grade">
+			<option value="red">Red (V4-)</option>
+			<option value="blue">Blue (V5-6)</option>
+			<option value="orange">Orange (V7-8)</option>
+			<option value="purple">Purple (V9-V10)</option>
+			<option value="black">Black (V11+)</option>
+			<option selected value=<%=climb.grade%>>Leave Same</option>
+		</select>
+		<br>
+	</div>
+	<input type="submit" Value="Submit" class="btn btn-primary btn-block">
+</form>
+
+<form action="/editClimb/<%=climb.id%>?_method=DELETE" method="POST" class="container">
+	<input type="submit" value="Delete Climb" class="btn btn-danger btn-block">
+</form>
