@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             validate: {
                 isEmail: {
-                    msp: "Please enter valid email address"
+                    msg: "Please enter valid email address"
                 }
             }
         },

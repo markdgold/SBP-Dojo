@@ -3,10 +3,12 @@ $('.your_climbs_btn').click(() => {
 });
 
 $('.filter_btn').click(() => {
-    console.log('button clicked');
     $('#filter_slider').slideToggle();
 });
 
+$('.climb_info').click(function(event) {
+    $(this).siblings('.slide_info:eq(0)').slideToggle()
+});
 
 //grade selector
 var stepSlider = document.getElementById('slider-step');
@@ -20,21 +22,30 @@ noUiSlider.create(stepSlider, {
         'max': 5
     }
 });
+var stepValues = [
+    document.getElementById('slider-step-value-lower'),
+    document.getElementById('slider-step-value-upper')
+];
 
-var powerSelector = document.querySelector('input[name=power]');
-var techSelector = document.querySelector('input[name=tech]');
-var crimpSelector = document.querySelector('input[name=crimp]');
-var oneMoverSelector = document.querySelector('input[name=oneMover]');
-var enduroSelector = document.querySelector('input[name=enduro]');
+stepSlider.noUiSlider.on('update', function(values, handle) {
+    stepValues[handle].value = Math.trunc(values[handle]);
+
+});
+
+var powerSelector = document.querySelector('input[value=power]');
+var techSelector = document.querySelector('input[value=tech]');
+var crimpSelector = document.querySelector('input[value=crimp]');
+var oneMoverSelector = document.querySelector('input[value=oneMover]');
+var enduroSelector = document.querySelector('input[value=enduro]');
 var setBySelector = document.getElementById('setBy');
 
 
 $('#reset').click(() => {
+    stepSlider.noUiSlider.set([1, 5]);
     setBySelector.selectedIndex = 0;
     powerSelector.checked = false;
     techSelector.checked = false;
     crimpSelector.checked = false;
     enduroSelector.checked = false;
     oneMoverSelector.checked = false;
-    stepSlider.noUiSlider.set([1, 5]);
 });

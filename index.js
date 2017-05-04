@@ -75,6 +75,42 @@ app.post('/', multUp.single('image'), function(req, res) {
     });
 });
 
+app.post('/filter', (req, res) => {
+    console.log(req.body)
+    var lowerGrade = req.body.slider_lower - 1;
+    var upperGrade = req.body.slider_upper;
+    var style = req.body.style_group;
+    var setBy;
+    if (req.body.set_by === 'all') {
+        setBy = { gt: -1 };
+    } else {
+        setBy = req.body.set_by;
+    }
+    db.climb.findAll({
+        include: [db.user, db.grade],
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then(climbs => {
+        db.climb.findAll({
+            where: {
+                creator_id: setBy,
+                grade_id: { gt: lowerGrade },
+                grade_id: { lt: upperGrade },
+                style: style
+            },
+            include: [db.user, db.grade],
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        }).then(filteredClimbs => {
+            res.render('filtered', { climbs: climbs, filteredClimbs: filteredClimbs });
+        }).catch(error => {
+            res.render('error');
+        })
+    });
+});
+
 app.get('/error', function(req, res) {
     res.render('error');
 });

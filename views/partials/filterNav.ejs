@@ -1,3 +1,4 @@
+
 <nav class="climb_nav">
     <ul class="container text-center">
         <li class="col-xs-3"><a href="/"><i class="glyphicon glyphicon-home"></i></a></li><!--
@@ -8,31 +9,36 @@
      <li class="col-xs-3 filter_btn"><span><i class="glyphicon glyphicon-filter"></i></span></li>
      <li class="col-xs-3"><a href="/profile"><i class="glyphicon glyphicon-user"></i></a></li>
     </ul>
-<form id="filter_slider" class="container text-center">
+<form id="filter_slider" class="container text-center" action="/filter" method="POST">
     <div class="form-group well">
     <label for="Style">Style:</label>
     <br>
-      <input name="power" type="checkbox">Power
-      <input name="tech" type="checkbox">Tech
-      <input name="crimp" type="checkbox">Crimp
+    <fieldset>
+      <input name="style_group" value="power" type="checkbox">Power
+      <input name="style_group" value="tech" type="checkbox">Tech
+      <input name="style_group" value="crimp" type="checkbox">Crimp
       <br>
-      <input name="oneMover" type="checkbox">One-Mover
-      <input name="enduro" type="checkbox">Enduro
+      <input name="style_group" value="oneMover" type="checkbox">One-Mover
+      <input name="style_group" value="enduro" type="checkbox">Enduro
+    </fieldset>
     </div>
     <div class="form-group well">
     <label>Set By:</label>
-    <select id="setBy" class="form-control">
-      <option value="All">All</option>
+    <select id="setBy" name="set_by" class="form-control">
+      <option value="all">All</option>
       <% var unique = {};
         var uniqueUsernames = [];
         climbs.forEach(climb => {
           if (!unique[climb.user.username]) {
-            uniqueUsernames.push(climb.user.username);
+            uniqueUsernames.push({
+              'userId': climb.creator_id,
+              'username': climb.user.username
+            });
             unique[climb.user.username] = true;
           }
         });%>
-      <%uniqueUsernames.forEach(username =>{%>
-        <option value="<%=username%>"><%=username%></option>
+      <%uniqueUsernames.forEach(unique =>{%>
+        <option value="<%=unique.userId%>"><%=unique.username%></option>
       <%});%>
     </select>
     </div>
@@ -49,11 +55,11 @@
     </div>
 
     <div id=slider-step></div>
-    <span id="slider-step-value-lower"></span>
-    <span id="slider-step-value-upper"></span>
+    <input hidden type="text" name="slider_lower" id="slider-step-value-lower">
+    <input hidden type="text" name="slider_upper" id="slider-step-value-upper">
 
     <a id="reset" class="btn btn-primary col-xs-6">Reset</a>
-    <button id="filter" class="btn btn-primary col-xs-6">Filter</button>
+    <input type="submit" id="filter" class="btn btn-primary col-xs-6" value="Filter">
 </div>
 </form>
 </nav>

@@ -37,6 +37,10 @@ body {
     background: rgba(10, 10, 10, .4);
 }
 
+.jimbo {
+    width: 100%;
+}
+
 a {
     /*color: rgb(200, 200, 200);*/
     color: rgb(65, 65, 65);
@@ -117,6 +121,10 @@ footer span {
     margin-bottom: 20px;
 }
 
+.climb_div {
+    position: relative;
+}
+
 .climb_info {
     color: #eee;
     font-size: 1.6em;
@@ -145,6 +153,27 @@ main.profile {
 
 .red {
     background-color: #ba254e;
+}
+
+.slide_info {
+    position: absolute;
+    display: none;
+    width: 100%;
+    color: #eee;
+    background: rgba(65, 65, 65, .8);
+}
+
+.slide_info ul {
+    padding: 1% 0;
+}
+
+.slide_info ul li {
+    padding: 10% 0;
+    letter-spacing: 10px;
+}
+
+.slide_info a {
+    color: #eee;
 }
 
 
@@ -214,7 +243,8 @@ input[name="email"] {
     width: 100%;
     background: #eee;
     display: none;
-    padding-top: 30px
+    padding-top: 30px;
+    z-index: 100000;
 }
 
 .colorSpan {
@@ -232,15 +262,27 @@ input[name="email"] {
     border-radius: 0 5px 5px 0;
 }
 
+.alert {
+    border-radius: 0 !important;
+    z-index: 100000000;
+    position: absolute;
+    top: 0px;
+    width: 100%
+}
+
 @media (min-width: 780px) {
     main {
         width: 55%;
         margin: 0 auto;
     }
     #filter_slider {
-        width: 80%;
+        width: 50%;
+        left: 25%;
     }
     .show_nav {
         width: 100%;
+    }
+    .climb_nav {
+        position: relative;
     }
 }
