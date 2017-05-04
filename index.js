@@ -15,6 +15,7 @@ var clientID = process.env.IMGUR_CLIENT_ID;
 var path = require('path');
 var db = require('./models');
 var methodOverride = require('method-override');
+var fs = require('fs');
 
 var app = express();
 
@@ -41,7 +42,7 @@ app.use(methodOverride('_method'));
 //routes
 app.get('/', function(req, res) {
     db.climb.findAll({
-        include: [db.user],
+        include: [db.user, db.grade],
         order: [
             ['createdAt', 'DESC']
         ]
@@ -58,11 +59,15 @@ app.post('/', multUp.single('image'), function(req, res) {
         var imgurURL = response.data.link;
         db.climb.create({
             name: req.body.climbName,
-            grade: req.body.grade,
+            grade_id: req.body.grade_id,
             style: req.body.style,
             imgur: imgurURL,
             creator_id: req.body.userID
         }).then(function(newClimb) {
+            console.log(req.file.path);
+            fs.unlink(req.file.path, (err) => {
+                if (err) throw err;
+            });
             res.redirect('/');
         }).catch(function(error) {
             res.render('error');
@@ -98,7 +103,7 @@ app.get('/climb/:id', (req, res) => {
             where: {
                 id: climbId
             },
-            include: [db.user]
+            include: [db.user, db.grade]
         })
         .then(climb => {
             res.render('show', { climb: climb });
@@ -117,6 +122,8 @@ app.get('/editClimb/:id', isLoggedIn, (req, res) => {
     db.climb.findById(climbId)
         .then(climb => {
             res.render('editClimb', { climb: climb });
+        }).catch(error => {
+            res.render('error');
         });
 });
 

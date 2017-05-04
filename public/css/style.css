@@ -63,6 +63,8 @@ p {
     margin-bottom: 0px;
     background: #eee;
     padding: 9px 0 0 0;
+    position: sticky;
+    top: 0px;
 }
 
 ul {
@@ -206,8 +208,8 @@ input[name="email"] {
 
 #filter_slider {
     position: absolute;
-    right: 0;
-    top: 153px;
+    top: 48px;
+    border-top: 1px solid lightgrey;
     height: 500px;
     width: 100%;
     background: #eee;
@@ -228,4 +230,17 @@ input[name="email"] {
 
 .colorSpan:last-child {
     border-radius: 0 5px 5px 0;
+}
+
+@media (min-width: 780px) {
+    main {
+        width: 55%;
+        margin: 0 auto;
+    }
+    #filter_slider {
+        width: 80%;
+    }
+    .show_nav {
+        width: 100%;
+    }
 }

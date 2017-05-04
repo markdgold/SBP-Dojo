@@ -20,3 +20,21 @@ noUiSlider.create(stepSlider, {
         'max': 5
     }
 });
+
+var powerSelector = document.querySelector('input[name=power]');
+var techSelector = document.querySelector('input[name=tech]');
+var crimpSelector = document.querySelector('input[name=crimp]');
+var oneMoverSelector = document.querySelector('input[name=oneMover]');
+var enduroSelector = document.querySelector('input[name=enduro]');
+var setBySelector = document.getElementById('setBy');
+
+
+$('#reset').click(() => {
+    setBySelector.selectedIndex = 0;
+    powerSelector.checked = false;
+    techSelector.checked = false;
+    crimpSelector.checked = false;
+    enduroSelector.checked = false;
+    oneMoverSelector.checked = false;
+    stepSlider.noUiSlider.set([1, 5]);
+});

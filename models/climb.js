@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
     var climb = sequelize.define('climb', {
         name: DataTypes.STRING,
-        grade: DataTypes.STRING,
+        grade_id: DataTypes.INTEGER,
         creator_id: DataTypes.INTEGER,
         imgur: {
             type: DataTypes.TEXT /*,*/
@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 // associations can be defined here
                 models.climb.belongsTo(models.user, { foreignKey: 'creator_id' });
+                models.climb.belongsTo(models.grade, { foreignKey: 'grade_id' });
                 //models.climb.belongsToMany(models.user, { through: models.climb_send });
             }
         }
