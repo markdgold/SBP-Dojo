@@ -88,6 +88,10 @@ app.get('/profile', isLoggedIn, function(req, res) {
     });
 });
 
+app.get('/about', (req, res) => {
+    res.render('about');
+})
+
 app.get('/climb/:id', (req, res) => {
     var climbId = req.params.id;
     db.climb.findOne({

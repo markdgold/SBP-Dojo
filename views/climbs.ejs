@@ -1,6 +1,7 @@
+
 <main>
 <%climbs.forEach(function(climb){ %>
-<div class="climb_div col-xs-12 container text-center">
+<div class="climb_div text-center">
     <div id="<%=climb.user.username%>" class="climb_info <%=climb.grade%> <%=climb.style%>">
         <p>"<%=climb.name%>"</p>
         <p>Set By: <%=climb.user.username%></p>
@@ -23,11 +24,17 @@
     <div class="form-group well">
     <label>Set By:</label>
     <select id="setBy" class="form-control">
-      <option value="markdgold">markdgold</option>
-      <option value="DNA">DNA</option>
-      <option value="NUG">NUG</option>
-      <option value="Drew">Drew</option>
-      <option value="TIGGY">TIGGY</option>
+     	<% var unique = {};
+				var uniqueUsernames = [];
+				climbs.forEach(climb => {
+  				if (!unique[climb.user.username]) {
+    				uniqueUsernames.push(climb.user.username);
+    				unique[climb.user.username] = true;
+  				}
+				});%>
+      <%uniqueUsernames.forEach(username =>{%>
+      	<option value="<%=username%>"><%=username%></option>
+      <%});%>
       <option value="All" selected>All</option>
     </select>
     </div>
@@ -44,7 +51,12 @@
     </div>
 
     <div id=slider-step></div>
-    <button id="reset" class="btn btn-primary btn-block">Reset</button>
+    <span id="slider-step-value-lower"></span>
+    <span id="slider-step-value-upper"></span>
+
+    <button id="reset" class="btn btn-primary col-xs-6">Reset</button>
+    <button id="filter" class="btn btn-primary col-xs-6">Filter</button>
+</div>
 </form>
 
 </main>
