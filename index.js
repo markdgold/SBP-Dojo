@@ -161,4 +161,4 @@ app.delete('/editClimb/:id', (req, res) => {
 app.use('/auth', require('./controllers/auth'));
 
 //Listen
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
