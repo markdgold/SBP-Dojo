@@ -166,10 +166,10 @@ app.get('/editClimb/:id', isLoggedIn, (req, res) => {
 app.put('/editClimb/:id', (req, res) => {
     var climbId = req.params.id;
     var newClimbData = req.body;
-    console.log('newdata', req.body.style);
+    console.log('newdata', req.body);
     var updateClause = {
         style: newClimbData.style,
-        grade: newClimbData.grade
+        grade_id: newClimbData.grade_id
     };
 
     var options = {

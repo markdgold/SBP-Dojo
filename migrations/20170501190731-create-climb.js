@@ -11,7 +11,7 @@ module.exports = {
             name: {
                 type: Sequelize.STRING
             },
-            grade: {
+            grade_id: {
                 type: Sequelize.STRING
             },
             creator_id: {
