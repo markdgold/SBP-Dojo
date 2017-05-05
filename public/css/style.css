@@ -1,7 +1,9 @@
 body {
-    font-family: 'Old Standard TT', serif;
+    font-family: 'raleway', sans-serif;
     background-position: left;
     text-transform: uppercase;
+    background: rgb(65, 65, 65);
+    min-height: 100%;
 }
 
 .wrapper {
@@ -77,7 +79,7 @@ ul {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background: #eee;
     color: rgb(65, 65, 65);
@@ -128,12 +130,16 @@ footer span {
 
 .climb_info {
     color: #eee;
-    font-size: 1.6em;
+    font-size: 1.2em;
     padding-top: 5px;
 }
 
 main.profile {
     margin-top: 20px;
+}
+
+main {
+    letter-spacing: 8px;
 }
 
 .orange {
@@ -177,6 +183,14 @@ main.profile {
     color: #eee;
 }
 
+.about {
+    color: #eee;
+}
+
+.eee {
+    color: #eee;
+}
+
 
 /*----------------Forms--------------*/
 
@@ -193,7 +207,13 @@ input[name="email"] {
 }
 
 .or {
-    text-align: center
+    text-align: center;
+    color: #eee;
+}
+
+legend {
+    color: #eee;
+    margin-top: 20px;
 }
 
 
@@ -208,8 +228,9 @@ input[name="email"] {
 }
 
 .btn-primary {
-    background: #1d6b92 !important;
+    background: #eee !important;
     border: none !important;
+    color: rgb(65, 65, 65) !important;
 }
 
 .form_well {
@@ -225,6 +246,12 @@ input[name="email"] {
     margin-bottom: 0;
     display: none;
     border-radius: 0;
+    background: rgb(65, 65, 65);
+    text-align: center;
+}
+
+.users_climbs a {
+    color: #eee;
 }
 
 .logout {
@@ -234,6 +261,7 @@ input[name="email"] {
 .username {
     margin-top: 0;
     margin-bottom: 30px;
+    color: #eee;
 }
 
 #filter_slider {
@@ -268,7 +296,7 @@ input[name="email"] {
     z-index: 100000000;
     position: absolute;
     top: 0px;
-    width: 100%
+    width: 100%;
 }
 
 @media (min-width: 780px) {

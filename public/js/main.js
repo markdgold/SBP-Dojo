@@ -1,3 +1,5 @@
+$('.alert').fadeOut(5000);
+
 $('.your_climbs_btn').click(() => {
     $('.users_climbs').slideToggle();
 });
