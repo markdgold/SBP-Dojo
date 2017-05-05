@@ -12,7 +12,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             grade_id: {
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER
             },
             creator_id: {
                 type: Sequelize.INTEGER
