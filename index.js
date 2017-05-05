@@ -22,7 +22,6 @@ var app = express();
 
 //Set and Use
 app.set('view engine', 'ejs');
-app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ejsLayouts);
 app.use(session({
