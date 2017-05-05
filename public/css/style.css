@@ -206,6 +206,11 @@ input[name="email"] {
     border-radius: 0;
 }
 
+input[type='submit'] {
+    font-weight: bolder;
+    border: 1px solid rgb(65, 65, 65) !important;
+}
+
 .or {
     text-align: center;
     color: #eee;
@@ -254,7 +259,9 @@ legend {
     color: #eee;
 }
 
-.logout {
+.logout,
+.logbook_profile,
+.favorites_profile {
     margin-top: 10px !important;
 }
 

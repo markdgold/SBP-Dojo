@@ -5,11 +5,11 @@ module.exports = function(sequelize, DataTypes) {
         grade_id: DataTypes.INTEGER,
         creator_id: DataTypes.INTEGER,
         imgur: {
-            type: DataTypes.TEXT /*,*/
-                /*validate: {
-        isURL: true
-*/
-                // }
+            type: DataTypes.TEXT,
+            validate: {
+                isURL: true
+
+            }
         },
         style: DataTypes.TEXT
     }, {
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
                 // associations can be defined here
                 models.climb.belongsTo(models.user, { foreignKey: 'creator_id' });
                 models.climb.belongsTo(models.grade, { foreignKey: 'grade_id' });
-                //models.climb.belongsToMany(models.user, { through: models.climb_send });
+
             }
         }
     });

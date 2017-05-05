@@ -19,8 +19,10 @@ var fs = require('fs');
 
 var app = express();
 
+
 //Set and Use
 app.set('view engine', 'ejs');
+app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ejsLayouts);
 app.use(session({
@@ -54,9 +56,12 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', multUp.single('image'), function(req, res) {
+    console.log('---------------------------')
+    console.log('body', req.body);
     imgur.setClientID(clientID);
     imgur.upload(path.join('./', req.file.path), function(err, response) {
         var imgurURL = response.data.link;
+        console.log(imgurURL);
         db.climb.create({
             name: req.body.climbName,
             grade_id: req.body.grade_id,
@@ -70,22 +75,33 @@ app.post('/', multUp.single('image'), function(req, res) {
             });
             res.redirect('/');
         }).catch(function(error) {
+            console.log(error)
             res.render('error');
         });
     });
 });
 
 app.post('/filter', (req, res) => {
-    console.log(req.body)
+    console.log('//////', req.body);
     var lowerGrade = req.body.slider_lower - 1;
-    var upperGrade = req.body.slider_upper;
+    var upperGrade = req.body.slider_upper - 1;
     var style = req.body.style_group;
-    var setBy;
+    // var style;
+    var setBy = req.body.set_by;
+    console.log(typeof(setBy));
     if (req.body.set_by === 'all') {
         setBy = { gt: -1 };
     } else {
         setBy = req.body.set_by;
     }
+    if (!req.body.style_group) {
+        style = ['power', 'crimp', 'oneMover', 'enduro', 'tech'];
+    } else {
+        style = req.body.style_group;
+    }
+
+
+
     db.climb.findAll({
         include: [db.user, db.grade],
         order: [
@@ -95,8 +111,7 @@ app.post('/filter', (req, res) => {
         db.climb.findAll({
             where: {
                 creator_id: setBy,
-                grade_id: { gt: lowerGrade },
-                grade_id: { lt: upperGrade },
+                grade_id: { between: [lowerGrade, upperGrade] },
                 style: style
             },
             include: [db.user, db.grade],
@@ -104,11 +119,27 @@ app.post('/filter', (req, res) => {
                 ['createdAt', 'DESC']
             ]
         }).then(filteredClimbs => {
+            console.log(filteredClimbs);
             res.render('filtered', { climbs: climbs, filteredClimbs: filteredClimbs });
         }).catch(error => {
+            console.log('---------------', error);
             res.render('error');
         })
     });
+});
+
+app.get('/favorites', (req, res) => {
+    db.user.getClimbs({
+            where: {
+                user_id: 3
+            }
+        })
+        .then(favoriteClimbs => {
+            console.log('--------------------------------')
+            res.render('favorites', { favoriteClimbs: favoriteClimbs });
+        }).catch(function(error) {
+            res.render('error');
+        })
 });
 
 app.get('/error', function(req, res) {
@@ -120,7 +151,10 @@ app.get('/profile', isLoggedIn, function(req, res) {
     db.climb.findAll({
         where: {
             creator_id: req.user.id
-        }
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ]
     }).then(usersClimbs => {
 
         res.render('profile', { usersClimbs: usersClimbs });

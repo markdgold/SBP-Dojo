@@ -1,7 +1,6 @@
-<%include partials/filterNav%>
-
+<%include partials/nav%>
 <main class="all_climbs">
-<%climbs.forEach(function(climb){ %>
+<%favoriteClimbs.forEach(function(climb){ %>
 <div class="climb_div text-center">
     <div id="<%=climb.user.username%>" class="climb_info <%=climb.grade.color%> <%=climb.style%>">
         <p>"<%=climb.name%>"</p>
