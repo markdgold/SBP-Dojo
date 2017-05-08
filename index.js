@@ -16,6 +16,7 @@ var path = require('path');
 var db = require('./models');
 var methodOverride = require('method-override');
 var fs = require('fs');
+var request = require('request')
 
 var app = express();
 
@@ -41,6 +42,14 @@ app.use(express.static(__dirname + '/public/'));
 app.use(methodOverride('_method'));
 
 //routes
+
+app.get('/credits', (req, res) => {
+    imgur.setClientID(clientID);
+    request('http://api.imgur.com/3/credits', (error, response, body) => {
+        res.send(response)
+    })
+})
+
 app.get('/', function(req, res) {
     db.climb.findAll({
         include: [db.user, db.grade],
@@ -127,19 +136,42 @@ app.post('/filter', (req, res) => {
     });
 });
 
-app.get('/favorites', (req, res) => {
-    db.user.getClimbs({
+/*app.get('/favorites', (req, res) => {
+    db.climb_fav.findAll({
             where: {
                 user_id: 3
-            }
+            },
+            include: [db.user, db.climb]
         })
         .then(favoriteClimbs => {
-            console.log('--------------------------------')
-            res.render('favorites', { favoriteClimbs: favoriteClimbs });
+            console.log('favoriteClimbs', favoriteClimbs);
+            db.climb.findAll({
+                where: { id: favoriteClimbs.climb_id },
+                include: [db.grade]
+            }).then(favoriteClimbs => {
+
+                res.render('favorites', { favoriteClimbs: favoriteClimbs });
+            })
+            console.log('--------------------------------');
         }).catch(function(error) {
+            console.log(error);
             res.render('error');
-        })
+        });
 });
+*/
+
+/*app.get('/favorites', (req, res) => {
+    db.climb.findAll({
+        include: [db.grade, db.user],
+        through: [db.climb_fav, {where: user_id = 3}],
+    }).then(favoriteClimbs => {
+        console.log('--------------------------------');
+        res.render('favorites', { favoriteClimbs: favoriteClimbs });
+    }).catch(function(error) {
+        console.log(error);
+        res.render('error');
+    });
+});*/
 
 app.get('/error', function(req, res) {
     res.render('error');
@@ -225,6 +257,12 @@ app.delete('/editClimb/:id', (req, res) => {
         res.redirect('/profile');
     });
 });
+
+
+// app.get('*', (req, res) => {
+//     res.render('error404');
+// });
+
 
 //controllers
 app.use('/auth', require('./controllers/auth'));

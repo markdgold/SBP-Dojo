@@ -322,3 +322,9 @@ legend {
         position: relative;
     }
 }
+
+@media (max-height: 500px) {
+    footer {
+        visibility: hidden;
+    }
+}

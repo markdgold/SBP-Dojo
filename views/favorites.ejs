@@ -1,21 +1,21 @@
 <%include partials/nav%>
 <main class="all_climbs">
-<%favoriteClimbs.forEach(function(climb){ %>
+<%favoriteClimbs.forEach(function(favoriteClimb){ %>
 <div class="climb_div text-center">
-    <div id="<%=climb.user.username%>" class="climb_info <%=climb.grade.color%> <%=climb.style%>">
-        <p>"<%=climb.name%>"</p>
-        <p>Set By: <%=climb.user.username%></p>
-        <p>Style: <%=climb.style%></p>
+    <div id="<%=favoriteClimb.user.username%>" class="climb_info <%=favoriteClimb.climb.grade_id%> <%=favoriteClimb.climb.style%>">
+        <p>"<%=favoriteClimb.climb.name%>"</p>
+        <p>Set By: <%=favoriteClimb.user.username%></p>
+        <p>Style: <%=favoriteClimb.climb.style%></p>
     </div>
     <div class="slide_info">
     <ul>
-        <li><a href="/climb/<%=climb.id%>">view</li></a>
+        <li><a href="/climb/<%=favoriteClimb.climb.id%>">view</li></a>
         <li><form action="/favorites" method="PUT"><input type="submit" name="favorite" value="favorite"></form></li>
         <li>log</li>
         <li>comments</li>
     </ul>
     </div>
-    <img class="climb_img" src="<%=climb.imgur%>" alt="<%=climb.name%>">
+    <img class="climb_img" src="<%=favoriteClimb.climb.imgur%>" alt="<%=favoriteClimb.climb.name%>">
 </div>
 <%});%>
 
