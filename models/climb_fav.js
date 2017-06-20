@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
-                // models.climb_fav.belongsTo(models.user, { foreignKey: 'user_id' });
-                //models.climb_fav.belongsTo(models.climb, { foreignKey: 'climb_id' });
+                models.climb_fav.belongsTo(models.user, { foreignKey: 'user_id' });
+                models.climb_fav.belongsTo(models.climb, { foreignKey: 'climb_id' });
             }
         }
     });

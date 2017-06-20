@@ -42,7 +42,6 @@ app.use(express.static(__dirname + '/public/'));
 app.use(methodOverride('_method'));
 
 //routes
-
 app.get('/credits', (req, res) => {
     imgur.setClientID(clientID);
     request('http://api.imgur.com/3/credits', (error, response, body) => {
@@ -64,12 +63,9 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', multUp.single('image'), function(req, res) {
-    console.log('---------------------------')
-    console.log('body', req.body);
     imgur.setClientID(clientID);
     imgur.upload(path.join('./', req.file.path), function(err, response) {
         var imgurURL = response.data.link;
-        console.log(imgurURL);
         db.climb.create({
             name: req.body.climbName,
             grade_id: req.body.grade_id,
@@ -77,26 +73,21 @@ app.post('/', multUp.single('image'), function(req, res) {
             imgur: imgurURL,
             creator_id: req.body.userID
         }).then(function(newClimb) {
-            console.log(req.file.path);
             fs.unlink(req.file.path, (err) => {
                 if (err) throw err;
             });
             res.redirect('/');
         }).catch(function(error) {
-            console.log(error)
             res.render('error');
         });
     });
 });
 
 app.post('/filter', (req, res) => {
-    console.log('//////', req.body);
     var lowerGrade = req.body.slider_lower - 1;
     var upperGrade = req.body.slider_upper - 1;
     var style = req.body.style_group;
-    // var style;
     var setBy = req.body.set_by;
-    console.log(typeof(setBy));
     if (req.body.set_by === 'all') {
         setBy = { gt: -1 };
     } else {
@@ -107,9 +98,6 @@ app.post('/filter', (req, res) => {
     } else {
         style = req.body.style_group;
     }
-
-
-
     db.climb.findAll({
         include: [db.user, db.grade],
         order: [
@@ -127,58 +115,120 @@ app.post('/filter', (req, res) => {
                 ['createdAt', 'DESC']
             ]
         }).then(filteredClimbs => {
-            console.log(filteredClimbs);
             res.render('filtered', { climbs: climbs, filteredClimbs: filteredClimbs });
         }).catch(error => {
-            console.log('---------------', error);
-            res.render('error');
-        })
-    });
-});
-
-/*app.get('/favorites', (req, res) => {
-    db.climb_fav.findAll({
-            where: {
-                user_id: 3
-            },
-            include: [db.user, db.climb]
-        })
-        .then(favoriteClimbs => {
-            console.log('favoriteClimbs', favoriteClimbs);
-            db.climb.findAll({
-                where: { id: favoriteClimbs.climb_id },
-                include: [db.grade]
-            }).then(favoriteClimbs => {
-
-                res.render('favorites', { favoriteClimbs: favoriteClimbs });
-            })
-            console.log('--------------------------------');
-        }).catch(function(error) {
-            console.log(error);
             res.render('error');
         });
-});
-*/
-
-/*app.get('/favorites', (req, res) => {
-    db.climb.findAll({
-        include: [db.grade, db.user],
-        through: [db.climb_fav, {where: user_id = 3}],
-    }).then(favoriteClimbs => {
-        console.log('--------------------------------');
-        res.render('favorites', { favoriteClimbs: favoriteClimbs });
-    }).catch(function(error) {
-        console.log(error);
-        res.render('error');
     });
-});*/
+});
+
+// favorites
+app.get('/favorites', (req,res) =>{
+    console.log('favorites req----------------', req.session.passport.user)
+    db.climb_fav.findAll({
+        where: {user_id: req.session.passport.user}
+    })
+    .then(favoriteClimbs => {
+        var getFavoriteClimbsFn = function(favoriteClimb, callback){
+            db.climb.findAll({
+                where: {id: favoriteClimb.climb_id},
+                include: [db.grade, db.user]
+            })
+            .then(favoriteClimbFull =>{
+                callback(null, favoriteClimbFull);
+            });
+        };
+        async.concat(favoriteClimbs, getFavoriteClimbsFn, function(err, result){
+            console.log(result);
+            res.render('favorites', {favoriteClimbs: result});
+        });
+    });
+});
+
+
+app.post('/favorites/:id', (req,res) =>{
+    db.climb_fav.findOrCreate({
+        where: {user_id: req.body.userId, climb_id: req.params.id}
+    }).spread((favorite, wasCreated)=>{
+        if (wasCreated){
+            req.flash('success', 'Climb added to favorites')
+            res.redirect('/');
+        }
+        else {
+            req.flash('error', 'Climb already in favorites');
+            res.redirect('/')
+        }
+    }).catch(function(error){
+        req.flash('error', error.message);
+        res.redirect('/')
+    });
+});
+
+app.delete('/favorites/:id', (req, res) => {
+    db.climb_fav.destroy({
+        where: {climb_id: req.params.id, user_id: req.session.passport.user}
+    }).then(() => {
+        res.redirect('/favorites');
+    });
+});
+
+
+// logbook
+app.get('/logbook', (req,res) =>{
+    db.climb_send.findAll({
+        where: {user_id: req.session.passport.user}
+    })
+    .then(sentClimbs => {
+        var getSentClimbsFn = function(sentClimb, callback){
+            db.climb.findAll({
+                where: {id: sentClimb.climb_id},
+                include: [db.grade, db.user]
+            })
+            .then(sentClimbFull =>{
+                callback(null, sentClimbFull);
+            });
+        };
+        async.concat(sentClimbs, getSentClimbsFn, function(err, result){
+            console.log(result);
+            res.render('logbook', {sentClimbs: result});
+        });
+    });
+});
+
+
+app.post('/logbook/:id', (req,res) =>{
+    db.climb_send.findOrCreate({
+        where: {user_id: req.body.userId, climb_id: req.params.id}
+    }).spread((send, wasCreated)=>{
+        if (wasCreated){
+            req.flash('success', 'Climb added to logbook')
+            res.redirect('/');
+        }
+        else {
+            req.flash('error', 'Climb already in logbook');
+            res.redirect('/');
+        }
+    }).catch(function(error){
+        req.flash('error', error.message);
+        res.redirect('/')
+    });
+});
+
+app.delete('/logbook/:id', (req, res) => {
+    db.climb_send.destroy({
+        where: {climb_id: req.params.id, user_id: req.session.passport.user}
+    }).then(() => {
+        res.redirect('/logbook');
+    });
+});
+
+
 
 app.get('/error', function(req, res) {
     res.render('error');
 });
 
 app.get('/profile', isLoggedIn, function(req, res) {
-    console.log('req', req.user.id);
     db.climb.findAll({
         where: {
             creator_id: req.user.id
@@ -187,7 +237,6 @@ app.get('/profile', isLoggedIn, function(req, res) {
             ['createdAt', 'DESC']
         ]
     }).then(usersClimbs => {
-
         res.render('profile', { usersClimbs: usersClimbs });
     }).catch(function(error) {
         res.render('error');
@@ -196,7 +245,7 @@ app.get('/profile', isLoggedIn, function(req, res) {
 
 app.get('/about', (req, res) => {
     res.render('about');
-})
+});
 
 app.get('/climb/:id', (req, res) => {
     var climbId = req.params.id;
@@ -211,7 +260,7 @@ app.get('/climb/:id', (req, res) => {
         })
         .catch(error => {
             res.render('error');
-        })
+        });
 });
 
 app.get('/newClimb', isLoggedIn, function(req, res) {
@@ -231,16 +280,13 @@ app.get('/editClimb/:id', isLoggedIn, (req, res) => {
 app.put('/editClimb/:id', (req, res) => {
     var climbId = req.params.id;
     var newClimbData = req.body;
-    console.log('newdata', req.body);
     var updateClause = {
         style: newClimbData.style,
         grade_id: newClimbData.grade_id
     };
-
     var options = {
         where: { id: climbId }
     };
-
     db.climb.update(updateClause, options).then(updated => {
         res.redirect('/climb/' + climbId);
     }).catch(error => {
@@ -258,11 +304,9 @@ app.delete('/editClimb/:id', (req, res) => {
     });
 });
 
-
 // app.get('*', (req, res) => {
 //     res.render('error404');
 // });
-
 
 //controllers
 app.use('/auth', require('./controllers/auth'));

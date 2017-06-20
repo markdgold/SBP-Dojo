@@ -11,9 +11,18 @@
     <div class="slide_info">
     <ul>
         <li><a href="/climb/<%=climb.id%>">view</li></a>
-        <!-- <li><form action="/favorites" method="PUT"><input type="submit" name="favorite" value="favorite"></form></li> -->
-        <li>favorite</li>
-        <li>log</li>
+        <%if(currentUser){%>
+            <li><form action="/favorites/<%=climb.id%>" method="POST">
+                    <input hidden type="text" name="userId" value=<%=currentUser.id%>>
+                    <input class="slide_info_submit" type="submit" name="favorite" value="Add Favorite">
+                </form>
+            </li>
+            <li><form action="/logbook/<%=climb.id%>" method="POST">
+                    <input hidden type="text" name="userId" value=<%=currentUser.id%>>
+                    <input class="slide_info_submit" type="submit" name="Log" value="Log Climb">
+                </form>
+            </li>
+        <%}%>
         <li>comments</li>
     </ul>
     </div>

@@ -117,6 +117,9 @@ footer span {
 .show_nav a {
     color: #eee;
 }
+.no_climbs_found{
+    color: #eee;
+}
 
 .climb_img {
     width: 100%;
@@ -183,6 +186,15 @@ main {
     color: #eee;
 }
 
+.slide_info_submit {
+    color: #eee;
+    background: none;
+    letter-spacing: 10px;
+    border: none !important;
+    font-weight: lighter !important;
+    text-transform: uppercase;
+}
+
 .about {
     color: #eee;
 }
@@ -204,11 +216,6 @@ input[name="password"] {
 
 input[name="email"] {
     border-radius: 0;
-}
-
-input[type='submit'] {
-    font-weight: bolder;
-    border: 1px solid rgb(65, 65, 65) !important;
 }
 
 .or {

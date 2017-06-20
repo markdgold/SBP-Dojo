@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
                 // associations can be defined here
                 models.climb.belongsTo(models.user, { foreignKey: 'creator_id' });
                 models.climb.belongsTo(models.grade, { foreignKey: 'grade_id' });
-                //models.climb.belongsToMany(models.user, { through: models.climb_fav, foreignKey: 'climb_id', otherKey: 'user_id' });
+                models.climb.belongsToMany(models.user, { through: 'climb_fav', foreignKey: 'climb_id', otherKey: 'user_id' });
             }
         }
     });
