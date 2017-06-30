@@ -8,8 +8,8 @@
 	<% if(currentUser && climb.creator_id == currentUser.id){%>
 	  <li class="col-xs-4"><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
 	  <li class="col-xs-4"><a href="#"><i class="glyphicon glyphicon-star"></i></a></li>
-	  <form action="/editClimb" method="get">
-	  <li class="col-xs-4"><a href="/editClimb/<%=climb.id%>"><i class="glyphicon glyphicon-edit"></i></a></li>
+	  <form action="/climb/edit" method="get">
+	  <li class="col-xs-4"><a href="/climb/edit/<%=climb.id%>"><i class="glyphicon glyphicon-edit"></i></a></li>
 	  </form>
 	<%} else if (currentUser) { %>
 		<li class="col-xs-6"><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>

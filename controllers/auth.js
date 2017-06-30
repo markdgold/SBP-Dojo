@@ -3,6 +3,7 @@ var fs = require('fs');
 var express = require('express');
 var passport = require('../config/passportConfig');
 var bodyParser = require('body-parser');
+var isLoggedIn = require('../middleware/isLoggedIn');
 var db = require('../models');
 var router = express.Router();
 
@@ -12,11 +13,27 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/profile',
+    successRedirect: '/auth/profile',
     successFlash: 'Logged in.',
     failureRedirect: '/auth/login',
     failureFlash: 'Try again'
 }));
+
+router.get('/profile', isLoggedIn, function(req, res) {
+    db.climb.findAll({
+        where: {
+            creator_id: req.user.id
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then(usersClimbs => {
+        res.render('profile', { usersClimbs: usersClimbs });
+    }).catch(function(error) {
+        res.render('error');
+    });
+});
+
 
 router.get('/signup', function(req, res) {
     res.render('signupForm');
@@ -53,11 +70,6 @@ router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success', 'You logged out');
     res.redirect('/');
-});
-
-// -----------------password reset
-router.get('/forgot', function(req,res){
-    res.render('passwordForgot');
 });
 
 //Export

@@ -1,6 +1,6 @@
 <%include partials/nav%>
 <h3 class="container">Edit "<%=climb.name%>"</h3>
-<form class="container well" action="<%= '/editClimb/' + climb.id + "?_method=PUT"%>" method="POST">
+<form class="container well" action="<%= '/climb/edit/' + climb.id + "?_method=PUT"%>" method="POST">
 
 	<div>
 		<label for="style">Style</label>
@@ -22,13 +22,13 @@
 			<option value="2">Orange (V7-8)</option>
 			<option value="3">Purple (V9-V10)</option>
 			<option value="4">Black (V11+)</option>
-			<option selected value=<%=climb.grade%>>Leave Same</option>
+			<option selected value=<%=climb.grade_id%>>Leave Same</option>
 		</select>
 		<br>
 	</div>
 	<input type="submit" Value="Submit" class="btn btn-primary btn-block">
 </form>
 
-<form action="/editClimb/<%=climb.id%>?_method=DELETE" method="POST" class="container">
+<form action="/climb/edit/<%=climb.id%>?_method=DELETE" method="POST" class="container">
 	<input type="submit" value="Delete Climb" class="btn btn-danger btn-block">
 </form>
