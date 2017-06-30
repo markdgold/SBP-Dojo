@@ -16,10 +16,8 @@ var path = require('path');
 var db = require('./models');
 var methodOverride = require('method-override');
 var fs = require('fs');
-var request = require('request')
-
+var request = require('request');
 var app = express();
-
 
 //Set and Use
 app.set('view engine', 'ejs');
@@ -45,9 +43,9 @@ app.use(methodOverride('_method'));
 app.get('/credits', (req, res) => {
     imgur.setClientID(clientID);
     request('http://api.imgur.com/3/credits', (error, response, body) => {
-        res.send(response)
-    })
-})
+        res.send(response);
+    });
+});
 
 app.get('/', function(req, res) {
     db.climb.findAll({
@@ -124,7 +122,6 @@ app.post('/filter', (req, res) => {
 
 // favorites
 app.get('/favorites', (req,res) =>{
-    console.log('favorites req----------------', req.session.passport.user)
     db.climb_fav.findAll({
         where: {user_id: req.session.passport.user}
     })
@@ -156,11 +153,11 @@ app.post('/favorites/:id', (req,res) =>{
         }
         else {
             req.flash('error', 'Climb already in favorites');
-            res.redirect('/')
+            res.redirect('/');
         }
     }).catch(function(error){
         req.flash('error', error.message);
-        res.redirect('/')
+        res.redirect('/');
     });
 });
 
@@ -201,7 +198,7 @@ app.post('/logbook/:id', (req,res) =>{
         where: {user_id: req.body.userId, climb_id: req.params.id}
     }).spread((send, wasCreated)=>{
         if (wasCreated){
-            req.flash('success', 'Climb added to logbook')
+            req.flash('success', 'Climb added to logbook');
             res.redirect('/');
         }
         else {
@@ -210,7 +207,7 @@ app.post('/logbook/:id', (req,res) =>{
         }
     }).catch(function(error){
         req.flash('error', error.message);
-        res.redirect('/')
+        res.redirect('/');
     });
 });
 

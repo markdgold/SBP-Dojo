@@ -1,6 +1,8 @@
 //Requires and Globals
+var fs = require('fs');
 var express = require('express');
 var passport = require('../config/passportConfig');
+var bodyParser = require('body-parser');
 var db = require('../models');
 var router = express.Router();
 
@@ -51,6 +53,11 @@ router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success', 'You logged out');
     res.redirect('/');
+});
+
+// -----------------password reset
+router.get('/forgot', function(req,res){
+    res.render('passwordForgot');
 });
 
 //Export
