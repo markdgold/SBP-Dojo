@@ -1,8 +1,10 @@
 var express = require('express');
 var db = require('../models');
 var async = require('async');
+var methodOverride = require('method-override');
 var router = express.Router();
 
+router.use(methodOverride('_method'));
 
 router.get('/', (req,res) =>{
     db.climb_fav.findAll({
@@ -40,7 +42,7 @@ router.post('/:id', (req,res) =>{
         }
     }).catch(function(error){
         req.flash('error', error.message);
-        res.redirect('/');
+        res.redirect('back');
     });
 });
 
@@ -48,7 +50,7 @@ router.delete('/:id', (req, res) => {
     db.climb_fav.destroy({
         where: {climb_id: req.params.id, user_id: req.session.passport.user}
     }).then(() => {
-        res.redirect('/favorites');
+        res.redirect('back');
     });
 });
 

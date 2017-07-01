@@ -27,6 +27,7 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 // associations can be defined here
                 models.user.belongsToMany(models.climb, { through: 'climb_fav', foreignKey: 'user_id', otherKey: 'climb_id' });
+                models.user.hasMany(models.comment, {foreignKey: 'userId'});
             }
         },
         instanceMethods: {

@@ -98,6 +98,7 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/favorites', require('./controllers/favorites'));
 app.use('/logbook', require('./controllers/logbook'));
 app.use('/climb', require('./controllers/climb'));
+app.use('/comments', require('./controllers/comment'));
 
 //Listen
 app.listen(process.env.PORT || 3000);

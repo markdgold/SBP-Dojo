@@ -7,6 +7,7 @@ var imgur = require('imgur-node-api');
 var clientID = process.env.IMGUR_CLIENT_ID;
 var path = require('path');
 var fs = require('fs');
+var async = require('async');
 var methodOverride = require('method-override');
 var router = express.Router();
 
@@ -20,20 +21,28 @@ router.use(methodOverride('_method'));
 //     });
 // });
 
-router.get('/:id', (req, res) => {
+router.get('/show/:id', (req, res) => {
     var climbId = req.params.id;
     db.climb.findOne({
-            where: {
-                id: climbId
+        where: {
+            id: climbId
+        },
+        include: [
+            {
+                model: db.comment,
+                include: [{model: db.user}]
             },
-            include: [db.user, db.grade]
-        })
-        .then(climb => {
-            res.render('show', { climb: climb });
-        })
-        .catch(error => {
-            res.render('error');
-        });
+            {
+                model: db.user
+            }, {
+                model: db.grade
+            }
+        ]
+    })
+    .then(climb=>{
+        // res.send(climb);
+        res.render('show', { climb: climb });
+    })
 });
 
 router.get('/new', isLoggedIn, function(req, res) {
@@ -72,7 +81,6 @@ router.get('/edit/:id', isLoggedIn, (req, res) => {
 });
 
 router.put('/edit/:id', (req, res) => {
-    console.log('-----------',req.body);
     var climbId = req.params.id;
     var newClimbData = req.body;
     var updateClause = {
@@ -83,7 +91,7 @@ router.put('/edit/:id', (req, res) => {
         where: { id: climbId }
     };
     db.climb.update(updateClause, options).then(updated => {
-        res.redirect('/climb/' + climbId);
+        res.redirect('/climb/show/' + climbId);
     }).catch(error => {
         res.render('error');
     });

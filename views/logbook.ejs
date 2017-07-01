@@ -9,15 +9,17 @@
         <p>"<%=sentClimb.name%>"</p>
         <p>Set By: <%=sentClimb.user.username%></p>
         <p>Style: <%=sentClimb.style%></p>
+        <hr>
+        <p><i class="glyphicon glyphicon-chevron-down"></i></p>
     </div>
     <div class="slide_info">
     <ul>
-        <li><a href="/climb/<%=sentClimb.id%>">view</li></a>
-        <li><form action="/logbook/<%=sentClimb.id%>?_method=DELETE" method="POST">
+        <li><a href="/climb/show/<%=sentClimb.id%>">view</li></a>
+        <li>
+            <form action="/logbook/<%=sentClimb.id%>?_method=DELETE" method="POST">
                 <input class="slide_info_submit" type="submit" name="deleteSend" value="Delete Send">
             </form>
         </li>
-        <li>comments</li>
     </ul>
     </div>
     <img class="climb_img" src="<%=sentClimb.imgur%>" alt="<%=sentClimb.name%>">

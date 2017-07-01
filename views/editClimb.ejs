@@ -1,5 +1,5 @@
 <%include partials/nav%>
-<h3 class="container">Edit "<%=climb.name%>"</h3>
+<h3 class="container eee">Edit "<%=climb.name%>"</h3>
 <form class="container well" action="<%= '/climb/edit/' + climb.id + "?_method=PUT"%>" method="POST">
 
 	<div>
@@ -26,7 +26,7 @@
 		</select>
 		<br>
 	</div>
-	<input type="submit" Value="Submit" class="btn btn-primary btn-block">
+	<input type="submit" value="Edit Climb" class="btn btn-primary btn-block">
 </form>
 
 <form action="/climb/edit/<%=climb.id%>?_method=DELETE" method="POST" class="container">

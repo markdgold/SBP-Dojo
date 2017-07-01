@@ -1,7 +1,10 @@
 var express = require('express');
 var db = require('../models');
 var async = require('async');
+var methodOverride = require('method-override');
 var router = express.Router();
+
+router.use(methodOverride('_method'));
 
 router.get('/', (req,res) =>{
     db.climb_send.findAll({
@@ -30,15 +33,15 @@ router.post('/:id', (req,res) =>{
     }).spread((send, wasCreated)=>{
         if (wasCreated){
             req.flash('success', 'Climb added to logbook');
-            res.redirect('/');
+            res.redirect('back');
         }
         else {
             req.flash('error', 'Climb already in logbook');
-            res.redirect('/');
+            res.redirect('back');
         }
     }).catch(function(error){
         req.flash('error', error.message);
-        res.redirect('/');
+        res.redirect('back');
     });
 });
 
@@ -46,7 +49,7 @@ router.delete('/:id', (req, res) => {
     db.climb_send.destroy({
         where: {climb_id: req.params.id, user_id: req.session.passport.user}
     }).then(() => {
-        res.redirect('/logbook');
+        res.redirect('back');
     });
 });
 

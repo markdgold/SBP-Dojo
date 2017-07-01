@@ -43,6 +43,12 @@ body {
     width: 100%;
 }
 
+.comment-text{
+    letter-spacing: 0px !important;
+    text-transform: none !important;
+    text-overflow: visible
+}
+
 a {
     /*color: rgb(200, 200, 200);*/
     color: rgb(65, 65, 65);
@@ -165,6 +171,10 @@ main {
     background-color: #ba254e;
 }
 
+.eee {
+    color: #eee;
+}
+
 .slide_info {
     position: absolute;
     display: none;
@@ -235,6 +245,15 @@ legend {
     text-transform: uppercase;
 }
 
+.margin-bottom-30{
+    margin-bottom: 30px;
+}
+
+.glyph-buttons{
+    background: none;
+    border: none;
+}
+
 .btn-danger {
     margin-top: 50px;
 }
@@ -243,6 +262,18 @@ legend {
     background: #eee !important;
     border: none !important;
     color: rgb(65, 65, 65) !important;
+}
+
+.no-bottom-margin{
+    margin-bottom: 0 !important
+}
+
+.no-padding{
+    padding:0 !important;
+}
+
+.full-width{
+    width: 100%;
 }
 
 .form_well {

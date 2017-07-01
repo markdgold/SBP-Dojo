@@ -7,10 +7,12 @@
         <p>"<%=climb.name%>"</p>
         <p>Set By: <%=climb.user.username%></p>
         <p>Style: <%=climb.style%></p>
+        <hr>
+        <p><i class="glyphicon glyphicon-chevron-down"></i></p>
     </div>
     <div class="slide_info">
     <ul>
-        <li><a href="/climb/<%=climb.id%>">view</li></a>
+        <li><a href="/climb/show/<%=climb.id%>">view</li></a>
         <%if(currentUser){%>
             <li><form action="/favorites/<%=climb.id%>" method="POST">
                     <input hidden type="text" name="userId" value=<%=currentUser.id%>>
@@ -23,7 +25,6 @@
                 </form>
             </li>
         <%}%>
-        <li>comments</li>
     </ul>
     </div>
     <img class="climb_img" src="<%=climb.imgur%>" alt="<%=climb.name%>">
