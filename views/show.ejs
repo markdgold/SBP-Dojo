@@ -47,16 +47,6 @@
     <strong><%=comment.user.username%>:</strong><span class="comment-text"><%=comment.comment%></span>
   </div>
 <%})%>
-<div class="well">
-  <strong>markdgold:</strong><span class="comment-text">This climb is great</span>
-</div>
-<div class="well">
-  <strong>DNA:</strong><span class="comment-text">I backstepped every move. There's a techy drop knee for the 2nd move.</span>
-</div>
-<div class="well">
-  <strong>NUG:</strong><span class="comment-text">Soooooooooooooooooooft</span>
-</div>
-
 <%if(currentUser){%>
   <form class="well" action="/comments/new" method="POST">
     <div class="form-group container-fluid no-bottom-margin no-padding">
