@@ -11,10 +11,10 @@ module.exports = {
       comment: {
         type: Sequelize.STRING
       },
-      userID: {
+      userId: {
         type: Sequelize.INTEGER
       },
-      climbID: {
+      climbId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
